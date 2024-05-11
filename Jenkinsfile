@@ -5,14 +5,15 @@ pipeline {
         }
     }
     triggers {
-        pollSCM '*/2 * * * *'
+        pollSCM 'H/2 * * * *'
     }
     stages {
         stage('Build') {
             steps {
                 echo "Building.."
                 sh '''
-                echo "doing build stuff.."
+                cd myapp
+                pip install -r requirement.txt
                 '''
             }
         }
@@ -20,7 +21,9 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                echo "doing test stuff.."
+                cd myapp
+                python3 hello.py
+                python3 hello.py --name=Fang
                 '''
             }
         }
